@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load static %}
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}">
+    </head>
+    <body>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
+      <script type="text/javascript">
+        $(document).ready(function() {
+        $('select').material_select();
+        });
+      </script>
+    <div class="container">
+      <div class="row">
+        <form action="/process" method="post">
+          {%csrf_token%}
+          <h3>Register Here!</h3>
+          <input class="col s7" type="text" name="name" placeholder="Enter your first name!">
+          <input class="col s7" type="text" name="alias" placeholder="Enter your alias!">
+          <input class="col s7" type="text" name="email" placeholder="Enter your email!">
+          <input class="col s7" type="password" name="password" placeholder="Enter your password!">
+          <input class="col s7" type="password" name="password_c" placeholder="Confirm your password!">
+          <input id="date" type="date" name="birthday">
+          {% if messages %}
+            {% for message in messages%}
+              <p>{{message}}</p><br>
+            {% endfor %}
+          {% endif%}
+          <input class="waves-effect waves-light btn" type="submit" value="Submit">
+          <p>*your password must be 8 characters long</p>
+        </form>
+      </div>
+      <div class="row">
+        <h3>Login here:</h3>
+        <form action="/login" method="post">
+          {%csrf_token%}
+          <input class="col s7" type="text" name="email" placeholder="Enter your email">
+          <input class="col s7" type="password" name="password" placeholder="Enter your password">
+          <input class="waves-effect waves-light btn" type="submit" value="Login">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

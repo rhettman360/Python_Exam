@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load static %}
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}">
+    </head>
+    <body>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
+      <script type="text/javascript">
+        $(document).ready(function() {
+        $('select').material_select();
+        });
+      </script>
+    <div class="container">
+      <a href="/logout">Logout</a>
+      <h3>Welcome {{request.session.first_name}}.</h3>
+      <h4>Your friends</h4>
+      <table>
+        <tr>
+            <th>Alias</th>
+            <th>Actions</th>
+        </tr>
+        {%for ids in friendids%}
+        <tr>
+            <td>{{ids.alias}}</td>
+            <td><a href="/friends/{{ids.id}}/show">View Profile</a> | <a href="/friends/{{ids.id}}/remove">Remove as Friend</a></td>
+        </tr>
+        {%endfor%}
+      </table>
+      <hr>
+      <p>Other Users</p>
+      <table>
+        <tr>
+            <th>Alias</th>
+            <th>Actions</th>
+        </tr>
+        {%for user in otherUsers%}
+        <tr>
+            <td><a href="/friends/{{user.id}}/show">{{user.alias}}</a></td>
+            <td><a href="/friends/{{user.id}}/add">Add as Friend</a></td>
+        </tr>
+        {%endfor%}
+      </table>
+    </div>
+  </body>
+</html>
